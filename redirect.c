@@ -33,8 +33,12 @@ int main(int argc, char *argv[]) {
     size_t cmdline_size = strlen(cmd) + strlen(inp) + strlen(out) + 3;
     char *cmdline = (char *)malloc(cmdline_size);
 
-    snprintf(cmdline, cmdline_size, "%s %s %s", cmd, inp, out);
-
+    if (strcmp(cmd, "-") == 0) {
+        snprintf(cmdline, cmdline_size, "%s -u %s", cmd, inp);
+    } else {
+        snprintf(cmdline, cmdline_size, "%s %s %s", cmd, inp, out);
+    }
+    
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
     HANDLE hRead, hWrite;
